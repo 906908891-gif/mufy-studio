@@ -28,7 +28,7 @@
 需要 Node.js `>=22.13.0` 和 npm。
 
 ```bash
-git clone https://github.com/JackSunYQ/mufy-studio.git
+git clone https://github.com/906908891-gif/mufy-studio.git
 cd mufy-studio
 cp .env.example .env.local
 npm ci
