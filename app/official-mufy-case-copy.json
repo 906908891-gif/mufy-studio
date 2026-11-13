@@ -1,0 +1,22 @@
+{
+  "officialStatus": {
+    "target": "<EnvironmentData>\n    <Time>13:37:33</Time>\n    <Weather>多云转小雨</Weather>\n    <Description>空气中飘着柳絮伴随着樱花香，春天到了</Description>\n</EnvironmentData>",
+    "instruction": "在每次对话开始时，按照剧情需要更新的环境信息，请严格按照以下XML结构输出环境数据组件。\n\n<EnvironmentData>\n    <Time>当前场景的具体时间</Time>\n    <Weather>当前场景的天气情况</Weather>\n    <Description>用一句话描述当前环境的氛围、气味或景象</Description>\n</EnvironmentData>\n\n【字段说明】\n- <Time>：输出当前场景的具体时间，格式为 HH:MM:SS。\n- <Weather>：简要描述当前的天气，如“晴朗”、“小雨”、“阴天有风”。\n- <Description>：用一句带有感官细节的文字描述环境特色，例如“空气中弥漫着雨后泥土的清新气味”或“午后的阳光透过百叶窗，在木地板上投下斑驳的光影”。\n\n【重要约束】\n- 只输出上述XML结构，不要有任何开场白、解释或其他文字。\n- 必须保持XML标签名称（EnvironmentData, Time, Weather, Description）完全一致，不要修改。\n- 每个标签内只填写对应的内容，不要包含标签本身。"
+  },
+  "officialMemory": {
+    "target": "<MemoryArea>\n    <KeyMilestones>这里是关键里程碑</KeyMilestones>\n    <LongTermMemory>这里是长期记忆内容</LongTermMemory>\n    <ShortTermMemory>这里是短期记忆内容</ShortTermMemory>\n</MemoryArea>",
+    "instruction": "【记忆系统规则】 你拥有一个记忆系统，由“ShortTermMemory（短期记忆）”、“LongTermMemory（长期记忆）”及“KeyMilestones（关键里程碑）”组成。在每次对话结束后，你必须严格遵循以下规则，更新并输出记忆内容。\n\n【核心规则】\n1.总结短期记忆：在每次回复的最后，将当前对话的核心内容总结为一条新的短期记忆（20字以内）。\n2.累加与触发：\n读取历史短期记忆列表，将新的一条追加到末尾。\n如果 短期记忆列表少于 9 条：直接追加。\n3.清空与归档：\n如果 短期记忆积累满 10 条，你必须： \na. 将这 10 条短期记忆概括为 1 条新的“长期记忆”。 \nb. 将该条长期记忆追加到 <永久记忆> 标签中。 \nc. 清空 短期记忆区。\n4.关键里程碑：仅在发生重大事件（如：击败BOSS、确立关系、获得核心道具、地图转换等）时，在 <关键里程碑> 中追加新内容。非必要不更新。\n\n【输出格式】 严格按照以下 XML 结构输出。为了确保前端正确显示像素风样式，每一条独立的记忆内容必须单独包裹在 <span class=\"evt\">...</span> 标签中：\n\n<MemoryArea>\n    <KeyMilestones>\n        <span class=\"evt\">历史里程碑1</span><span class=\"evt\">...新里程碑(如果有)</span>\n    </KeyMilestones>\n    <LongTermMemory>\n        <span class=\"evt\">历史长期记忆1</span><span class=\"evt\">...新长期记忆(如果触发总结)</span>\n    </LongTermMemory>\n    <ShortTermMemory>\n        <span class=\"evt\">历史短期记忆1</span><span class=\"evt\">...本轮新总结</span>\n    </ShortTermMemory>\n</MemoryArea>\n\n【重要约束】\n-必须在每次对话后都执行记忆更新并输出 XML。\n-严格遵守“满 10 条触发总结并清空”的逻辑。\n-标签内部的每一个条目必须由 <span class=\"evt\"> 标签包裹。\n-长期记忆需保留旧内容并追加新内容，不可直接覆盖。"
+  },
+  "officialMap": {
+    "target": "<FantasyMap>\n    <CurrentLocation>血色修道院</CurrentLocation>\n    <EnvironmentDesc>不速之客的出现，打破了此地的死寂。</EnvironmentDesc>\n</FantasyMap>",
+    "instruction": "### 地图导航设定\n当玩家抵达新地点、探索环境或查看地图时，请在回复末尾严格输出以下XML：\n\n<FantasyMap>\n    <CurrentLocation>此处必须从以下列表中选择其一：血色修道院、灰烬荒原、沉沦之城、黑石深渊、叹息之门</CurrentLocation>\n    <EnvironmentDesc>用富有诗意的西幻笔触描述该地点的细节</EnvironmentDesc>\n</FantasyMap>\n\n【重要提示】\n- <CurrentLocation> 必须与列表中的字词完全一致，否则地图无法正确定位高亮。\n- 不要输出任何XML以外的辅助文字。"
+  },
+  "officialSticker": {
+    "target": "[表情包名称]",
+    "instruction": "mumu在每次输出的结尾会生成有mumu状态的表情包，\n采用以下格式：[开心]、[愤怒]、[无语]、[震惊]"
+  },
+  "officialPhone": {
+    "target": "<Phone>\n    <UserInput>汇总用户在本次对话中发送的所有消息，使用|||分隔每条独立消息</UserInput>\n    <AiInput>汇总角色在本次对话中回复的所有消息，使用|||分隔每条独立回复</AiInput>\n</Phone>",
+    "instruction": "严格按照以下XML结构输出手机聊天组件，不要输出任何其他内容：\n\n<Phone>\n    <UserInput>汇总用户在本次对话中发送的所有消息，使用|||分隔每条独立消息</UserInput>\n    <AiInput>汇总角色在本次对话中回复的所有消息，使用|||分隔每条独立回复</AiInput>\n</Phone>\n\n【字段说明】\n- <UserInput>：完整记录上一条用户发送的全部对话内容，每条消息末尾添加|||符号，最后一条消息无需添加\n- <AiInput>：完整记录角色回复的全部对话内容，每条回复末尾添加|||符号，最后一条回复无需添加\n\n【重要约束】\n- 仅输出XML结构，禁止添加开场白、解释性文字或多余内容\n- 严格保留标签名称<Phone><UserInput><AiInput>，不得修改\n- 确保消息内容准确还原对话原文，不进行删减或润色"
+  }
+}
